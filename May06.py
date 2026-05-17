@@ -13,10 +13,21 @@ st.write("Complete la información del paciente y seleccione un modelo para obte
 
 def cargar_modelo(url):
     response = requests.get(url)
-    return joblib.load(BytesIO(response.content))
 
-url_lr = "https://raw.githubusercontent.com/tu_usuario/tu_repo/main/modelos/modelo_regresion_logistica.pkl"
-url_rf = "https://raw.githubusercontent.com/tu_usuario/tu_repo/main/modelos/modelo_random_forest.pkl"
+    if response.status_code != 200:
+        st.error("❌ No se pudo descargar el modelo desde GitHub. Verifica el enlace RAW.")
+        st.stop()
+
+    try:
+        return joblib.load(BytesIO(response.content))
+    except Exception as e:
+        st.error("❌ Error al cargar el modelo. Verifica que el archivo .pkl sea correcto.")
+        st.write(e)
+        st.stop()
+
+# URLs RAW correctas (cámbialas con tu usuario y repo)
+url_lr = "https://raw.githubusercontent.com/jpantojad/May06/main/Model/modelo_regresion_logistica.pkl"
+url_rf = "https://raw.githubusercontent.com/jpantojad/May06/main/Model/modelo_random_forest.pkl"
 
 modelo_lr = cargar_modelo(url_lr)
 modelo_rf = cargar_modelo(url_rf)
