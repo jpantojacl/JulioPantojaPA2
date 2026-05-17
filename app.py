@@ -80,7 +80,7 @@ restecg = st.selectbox(
 )
 
 thalach = st.slider("Frecuencia cardíaca máxima alcanzada", 60, 250, 150)
-exang = st.radio("¿Angina inducida por ejercicio?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
+exang = st.radio("¿El paciente presenta dolor en el pecho durante la actividad física?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 oldpeak = st.slider("Depresión ST por ejercicio", 0.0, 10.0, 1.0, 0.1)
 
 slope = st.selectbox(
